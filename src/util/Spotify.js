@@ -1,5 +1,5 @@
 let accessToken = '';
-let client_ID = '768811a3703c422587629e627cc995d5'; //remember to remove client_ID before uploading
+let client_ID = ''; //remember to remove client_ID before uploading
 let redirectURI = 'http://localhost:3000/';
 
 let Spotify = {
