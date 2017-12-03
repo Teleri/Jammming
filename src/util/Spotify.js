@@ -1,14 +1,19 @@
 let accessToken = '';
-let client_ID = '768811a3703c422587629e627cc995d5'; //remember to remove client_ID before uploading
-let redirectURI = 'http://localhost:3000/';
+let clientID = '';
+let redirectURI = 'completejams.surge.sh';
 
 let Spotify = {
 	getAccessToken: function(term) {
 		if (accessToken) {
 			return accessToken;
-		}
-	
-	const authURL = 'https://accounts.spotify.com/authorize/?client_id=${client_ID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}&state=${termString}';
+		};
+
+let termString ='';
+    if (term) {
+      termString = `term=${term}`
+    }
+
+	const authURL = `https://accounts.spotify.com/authorize/?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}&state=${termString}`;
 	let myURL = window.location.href; // The URL of the current page
 	accessToken = myURL.match(/access_token=([^&]*)/);
 	let expiresIn = myURL.match(/expires_in=([^&]*)/);
@@ -24,28 +29,30 @@ let Spotify = {
 	}
 },
 
-	search: function(term, searchType) {
-		if (!searchType) {
-			searchType = 'track';
-		}
-		const searchURL = `https://api.spotify.com/v1/search?type=${searchType}&q=${term}`;
-		this.getAccessToken(term);
-		return fetch(searchURL, { headers: { Authorization: `Bearer ${accessToken}`, }
-			}).then(response => response.json()).then(jsonResponse => {
-				if (jsonResponse.tracks) {
-					return jsonResponse.tracks.items.map(track => {
-						return {
-						id: track.id,
-						name: track.name,
-						artist: track.artists[0].name,
-						album: track.album.name,
-						uri: track.uri,
-					}
-				});
-			}
-		}
-	)
-},
+  search: function(term, searchType) {
+    if (!searchType){
+      searchType = 'track';
+    }
+    const searchURL = `https://api.spotify.com/v1/search?type=${searchType}&q=${term}`;
+    this.getAccessToken(term);
+    return fetch(searchURL, { headers: { Authorization: `Bearer ${accessToken}`, },
+    }).then(response => response.json()).then(jsonResponse => {
+      if(jsonResponse.tracks){
+        return jsonResponse.tracks.items.map(track => {
+          return {
+            id: track.id,
+            name: track.name,
+            artist: track.artists[0].name,
+            album: track.album.name,
+            uri: track.uri,
+          }
+        });
+      }
+        console.log("No results found..");
+        return [];
+      }
+    )
+  },
 
 	savePlaylist: function(playlistName, trackURIs) {
 		if (!playlistName || !trackURIs) {

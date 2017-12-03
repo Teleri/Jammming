@@ -5,12 +5,10 @@ import './SearchResults.css';
 class SearchResults extends React.Component {
 	render() {
 		return (
-			<div>
 			<div className="SearchResults">
 			  <h2>Results</h2>
-			  <TrackList track={this.props.searchResults} onAdd={this.props.onAdd}/>
+			  <TrackList onAdd={this.props.onAdd} tracks={this.props.searchResults} isRemoval={this.props.isRemoval}/>
 			  </div>
-			</div>
 		);
 	}
 }
