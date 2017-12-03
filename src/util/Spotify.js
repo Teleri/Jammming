@@ -1,6 +1,11 @@
 let accessToken = '';
+<<<<<<< HEAD
 let clientID = '';
 let redirectURI = 'completejams.surge.sh';
+=======
+let client_ID = '';
+let redirectURI = 'http://localhost:3000/';
+>>>>>>> 54a4969bda68ebd4b29a04e7dcf03d81eab636d4
 
 let Spotify = {
 	getAccessToken: function(term) {
