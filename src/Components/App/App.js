@@ -50,13 +50,14 @@ savePlaylist() {
 }
 
 search(term) {
-  console.log('Currently searching for' + term);
+  console.log('Currently searching for: ' + term);
   if (term) {
     Spotify.search(term).then(results => {
       this.setState({searchResults: results
       })
     }) 
   } else {
+    // eslint-disable-next-line
     {this.setState}({ searchResults: [this.track] })
   };
 }
@@ -67,10 +68,10 @@ search(term) {
     <h1>Ja<span className="highlight">mmm</span>ing</h1>
     <div>
     <div className="App">
-      <SearchBar />
+      <SearchBar onSearch={this.search}/>
       <div className="App-playlist">
-        <SearchResults onAdd={this.addTrack} searchResults={this.state.searchResults} onRemove={false} onSearch={this.search}/>
-        <Playlist playlistTracks={this.state.playlistTracks} onAdd={this.addTrack} onRemove={this.removeTrack} 
+        <SearchResults onAdd={this.addTrack} searchResults={this.state.searchResults} onRemove={false} />
+        <Playlist playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} 
         onNameChange={this.updatePlaylistName} onSave={this.savePlaylist}/>
           </div>
         </div>

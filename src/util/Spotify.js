@@ -1,11 +1,6 @@
 let accessToken = '';
-<<<<<<< HEAD
-let clientID = '';
-let redirectURI = 'completejams.surge.sh';
-=======
-let client_ID = '';
-let redirectURI = 'http://localhost:3000/';
->>>>>>> 54a4969bda68ebd4b29a04e7dcf03d81eab636d4
+let clientID = '768811a3703c422587629e627cc995d5';
+let redirectURI = 'http://localhost:3000';
 
 let Spotify = {
 	getAccessToken: function(term) {
@@ -22,7 +17,7 @@ let termString ='';
 	let myURL = window.location.href; // The URL of the current page
 	accessToken = myURL.match(/access_token=([^&]*)/);
 	let expiresIn = myURL.match(/expires_in=([^&]*)/);
-	if (accessToken && expiresIn) {
+	if (accessToken && expiresIn) { 
 		accessToken = accessToken[1];
 		expiresIn = expiresIn[1];
 		window.setTimeout(() => accessToken = '', expiresIn * 1000);
